@@ -89,7 +89,7 @@ import { LAYOUTS } from './shared/layouts.js';
 // Minutes each slide stays up before the next one takes its turn. Whole
 // minutes, 1 to 1440. With 20-30 second display slots and 3-5 minute cycles,
 // 10-15 minutes keeps every slide visible across several cycles.
-const ROTATION_MINUTES = 10;
+const ROTATION_MINUTES = 15;
 
 // Layout used when ?layout= is missing or invalid (keys come from layouts.js).
 const DEFAULT_LAYOUT_KEY = 'wide';
