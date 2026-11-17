@@ -89,7 +89,7 @@ import { LAYOUTS } from './shared/layouts.js';
 // Minutes each slide stays up before the next one takes its turn. Whole
 // minutes, 1 to 1440. With 20-30 second display slots and 3-5 minute cycles,
 // 10-15 minutes keeps every slide visible across several cycles.
-const ROTATION_MINUTES = 1;
+const ROTATION_MINUTES = 10;
 
 // Layout used when ?layout= is missing or invalid (keys come from layouts.js).
 const DEFAULT_LAYOUT_KEY = 'wide';
@@ -98,7 +98,7 @@ const DEFAULT_LAYOUT_KEY = 'wide';
 const DISPLAY_TIME_ZONE = 'America/Chicago';
 
 // Text of the "no current slides" screen.
-const NO_SLIDES_TITLE = 'NO CURRENT NEWSLETTER SLIDES';
+const NO_SLIDES_TITLE = 'NO CURRENT NEWSLETTER';
 const NO_SLIDES_MESSAGE = 'Check back soon for new announcements.';
 // Short line shown under the QR code image. Leave empty for no caption.
 const NO_SLIDES_QR_CAPTION = 'Scan for the full newsletter';
