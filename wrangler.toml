@@ -1,0 +1,12 @@
+name = "newsletter-slides-display"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+
+# Production Worker: newsletter-slides-display.bwehner.workers.dev
+# Deployed automatically when changes are pushed to the main branch
+
+[env.staging]
+name = "newsletter-slides-display-staging"
+
+# Staging Worker: newsletter-slides-display-staging.bwehner.workers.dev
+# Deployed automatically when changes are pushed to the staging branch
