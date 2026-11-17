@@ -1,0 +1,40 @@
+name: Deploy to Cloudflare Workers
+on:
+  push:
+    branches:
+      - main      # Deploys to production Worker: newsletter-slides-display
+      - staging   # Deploys to staging Worker:    newsletter-slides-display-staging
+# This job only needs to read the repository. Cloudflare access comes from the
+# secrets below, not from the GitHub token, so the token is limited to read-only.
+permissions:
+  contents: read
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy
+    steps:
+      - uses: actions/checkout@v4
+      # Determine which Wrangler environment to deploy based on the branch.
+      # Pushes to staging use the [env.staging] block in wrangler.toml.
+      # Pushes to main use the root config (no environment flag needed).
+      #
+      # The three GOOGLE_* values are GitHub repository secrets. On every deploy
+      # they are pushed to the Worker's secrets in Cloudflare, so GitHub is the
+      # source of truth: to change one, update the GitHub secret and re-run the
+      # deploy for each branch. Changing it only in the Cloudflare dashboard
+      # would be overwritten by the next deploy.
+      - name: Deploy Worker
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: '4.71.0'
+          environment: ${{ github.ref == 'refs/heads/staging' && 'staging' || '' }}
+          secrets: |
+            GOOGLE_SERVICE_ACCOUNT_EMAIL
+            GOOGLE_PRIVATE_KEY
+            GOOGLE_DRIVE_FOLDER_ID
+        env:
+          GOOGLE_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_EMAIL }}
+          GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
+          GOOGLE_DRIVE_FOLDER_ID: ${{ secrets.GOOGLE_DRIVE_FOLDER_ID }}
